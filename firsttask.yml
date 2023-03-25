@@ -1,0 +1,63 @@
+---
+- hosts: Debian
+  become: yes
+  tasks:
+    - name: Install sudo, Midnight Commander, htop, Openjdk-11-jdk, git
+      ansible.builtin.apt:
+        update_cache: yes
+        pkg:
+          - sudo
+          - mc
+          - htop
+          - openjdk-11-jdk
+          - git
+
+    - name: Add fgery to sudo
+      ansible.builtin.user:
+        name: fgery
+        groups: sudo
+        append: yes
+
+    - name: Create udemx user with /opt/udemx home folder
+      ansible.builtin.user:
+        name: udemx
+        home: /opt/udemx
+
+    - name: Install Openjdk-8-jre-headless
+      ansible.builtin.apt:
+        deb: http://security.debian.org/debian-security/pool/updates/main/o/openjdk-8/openjdk-8-jre-headless_8u332-ga-1~deb9u1_amd64.deb
+    
+    - name: Install Openjdk-8-jre
+      ansible.builtin.apt:
+        deb: http://security.debian.org/debian-security/pool/updates/main/o/openjdk-8/openjdk-8-jre_8u332-ga-1~deb9u1_amd64.deb
+    
+    - name: Install Openjdk-8-jdk-headless
+      ansible.builtin.apt:
+        deb: http://security.debian.org/debian-security/pool/updates/main/o/openjdk-8/openjdk-8-jdk-headless_8u332-ga-1~deb9u1_amd64.deb
+
+    - name: Install Openjdk-8-jdk
+      ansible.builtin.apt:
+        deb: http://security.debian.org/debian-security/pool/updates/main/o/openjdk-8/openjdk-8-jdk_8u332-ga-1~deb9u1_amd64.deb
+
+    - name: Change Openjdk-11 to Openjdk-8
+      ansible.builtin.shell: update-java-alternatives --set  /usr/lib/jvm/java-1.8.0-openjdk-amd64
+
+    - name: Download Docker
+      ansible.builtin.get_url:
+        url: https://get.docker.com
+        dest: /tmp/get-docker.sh
+        mode: '0770'
+
+    - name: Docker install
+      ansible.builtin.shell: sh /tmp/get-docker.sh
+    
+    - name: Start and enable docker
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: true
+
+
+
+
+  

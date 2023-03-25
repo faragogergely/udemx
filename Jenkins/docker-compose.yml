@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  jenkins:
+    build: .
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      URL: http://192.168.56.1:8080/
+      JENKINS_ADMIN_ID: fgery
+      JENKINS_ADMIN_PASSWORD: fgerypw
+
