@@ -6,7 +6,8 @@ pipeline{
   stages{
     stage('Create selfsigned TLS certificate') {
       steps{
-        sh 'sudo ./certs/ssl.sh "${DOMAIN}"'
+        sh 'chmod +x ./certs/ssl.sh'
+        sh './certs/ssl.sh "${DOMAIN}"'
         sh 'cp ./certs/${DOMAIN}.key ./Apache/server.key'
         sh 'cp ./certs/${DOMAIN}.crt ./Apache/server.crt'
       }
