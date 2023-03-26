@@ -56,7 +56,19 @@
         name: docker
         state: started
         enabled: true
+    
+    - name: Git checkout
+      ansible.builtin.git:
+        repo: 'https://github.com/faragogergely/udemx.git'
+        dest: /tmp/udemx
 
+    - name: Start Docker Registry
+      ansible.builtin.shell: docker compose -f /tmp/udemx/Registry/docker-compose.yml up -d
+
+    - name: Start Jenkins
+      ansible.builtin.shell: docker compose -f /tmp/udemx/Jenkins/docker-compose.yml up -d
+
+ 
 
 
 
