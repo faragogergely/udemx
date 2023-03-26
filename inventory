@@ -1,5 +1,0 @@
-[Debian]
-192.168.56.1  
-
-[all:vars]
-ansible_user = fgery
