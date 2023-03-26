@@ -9,11 +9,12 @@ pipeline{
         sh './certs/ssl.sh "${DOMAIN}"'
         sh 'cp ./certs/${DOMAIN}.key ./Apache/server.key'
         sh 'cp ./certs/${DOMAIN}.crt ./Apache/server.crt'
-
+      }
+    }
     stage('Create image from Dockerfile') {
       steps{
         sh 'sudo docker build -t ${DOMAIN}:5000/httpd ./Apache'
-    }
+      }
     }
     stage('Upload image to registry') {
       steps{
