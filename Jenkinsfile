@@ -8,8 +8,8 @@ pipeline{
       steps{
         sh 'chmod +x ./certs/ssl.sh'
         sh './certs/ssl.sh "${DOMAIN}"'
-        sh 'cp ./certs/${DOMAIN}.key ./Apache/server.key'
-        sh 'cp ./certs/${DOMAIN}.crt ./Apache/server.crt'
+        sh 'cp ./${DOMAIN}.key ./Apache/server.key'
+        sh 'cp ./${DOMAIN}.crt ./Apache/server.crt'
       }
     }
     stage('Create image from Dockerfile') {
