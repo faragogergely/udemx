@@ -14,18 +14,18 @@ pipeline{
     }
     stage('Create image from Dockerfile') {
       steps{
-        sh 'sudo docker build -t ${DOMAIN}:5000/httpd ./Apache'
+        sh 'sudo docker build -t localhost:5000/httpd ./Apache'
       }
     }
     stage('Upload image to registry') {
       steps{
-        sh 'sudo docker push ${DOMAIN}:5000/httpd'
+        sh 'sudo docker push localhost:5000/httpd'
       
       }
     }
     stage('Deploy webserver') {
       steps{
-        sh 'sudo docker run -p 443:443 -d ${DOMAIN}:5000/httpd'
+        sh 'sudo docker run -p 443:443 -d localhost:5000/httpd'
         
       }
     }
