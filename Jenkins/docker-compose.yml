@@ -11,5 +11,5 @@ services:
       JENKINS_ADMIN_ID: fgery
       JENKINS_ADMIN_PASSWORD: fgerypw
     volumes:
-        - "/tmp/jenkins_home:/var/jenkins_home"
+        - "/var/jenkins_home:/var/jenkins_home"
 
