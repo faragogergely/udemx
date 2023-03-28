@@ -10,6 +10,4 @@ services:
       URL: http://192.168.56.1:8080/
       JENKINS_ADMIN_ID: fgery
       JENKINS_ADMIN_PASSWORD: fgerypw
-    volumes:
-        - "/var/jenkins_home:/var/jenkins_home"
 
