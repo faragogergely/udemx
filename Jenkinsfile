@@ -25,7 +25,7 @@ pipeline{
     }
     stage('Deploy webserver') {
       steps{
-        sh 'sudo docker run -p 443:443 -d localhost:5000/httpd'
+        sh 'sudo docker run -p 443:443 -d --restart unless-stopped localhost:5000/httpd'
         
       }
     }
