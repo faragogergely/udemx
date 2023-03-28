@@ -5,8 +5,11 @@ services:
     ports:
       - "8080:8080"
       - "50000:50000"
+    restart: unless-stopped
     environment:
       URL: http://192.168.56.1:8080/
       JENKINS_ADMIN_ID: fgery
       JENKINS_ADMIN_PASSWORD: fgerypw
+    volumes:
+        - "/tmp/jenkins_home:/var/jenkins_home"
 

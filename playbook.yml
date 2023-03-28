@@ -2,7 +2,7 @@
 - hosts: Debian
   become: yes
   tasks:
-    - name: Install sudo, Midnight Commander, htop, Openjdk-11-jdk, git
+    - name: Install sudo, Midnight Commander, htop, Openjdk-11-jdk, fail2ban, git
       ansible.builtin.apt:
         update_cache: yes
         pkg:
@@ -10,6 +10,7 @@
           - mc
           - htop
           - openjdk-11-jdk
+          - fail2ban
           - git
 
     - name: Add fgery to sudo
@@ -39,8 +40,8 @@
       ansible.builtin.apt:
         deb: http://security.debian.org/debian-security/pool/updates/main/o/openjdk-8/openjdk-8-jdk_8u332-ga-1~deb9u1_amd64.deb
 
-    - name: Change Openjdk-11 to Openjdk-8
-      ansible.builtin.shell: update-java-alternatives --set  /usr/lib/jvm/java-1.8.0-openjdk-amd64
+    - name: Change Javac version from 11 to 8
+      ansible.builtin.shell: update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
 
     - name: Download Docker
       ansible.builtin.get_url:
@@ -57,9 +58,22 @@
         state: started
         enabled: true
     
+    - name: Start Hello World container
+      ansible.builtin.shell: docker run hello-world
+    
+    - name: Config Git user
+      ansible.builtin.shell: git config --global user.name udemx@udemx.eu
+
+    - name: Copy Git credentials
+      ansible.builtin.copy:
+        src: /home/fgery/.ssh/id_rsa
+        dest: /home/fgery/.ssh/id_rsa
+        owner: fgery
+        mode: '0700'
+    
     - name: Git checkout
       ansible.builtin.git:
-        repo: 'https://github.com/faragogergely/udemx.git'
+        repo: 'git@github.com:faragogergely/udemx.git'
         dest: /tmp/udemx
 
     - name: Start Docker Registry

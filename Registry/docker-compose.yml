@@ -6,7 +6,7 @@ services:
         - "/tmp/docker_registry:/var/lib/registry"
         ports:
         - "5000:5000"
-        restart: always
+        restart: unless-stopped
     docker-registry-ui:
         image: parabuzzle/craneoperator:latest
         ports:
@@ -18,6 +18,6 @@ services:
         - SSL_VERIFY=false
         - USERNAME=fgery
         - PASSWORD=fgerypw
-        restart: always
+        restart: unless-stopped
         depends_on:
         - docker-registry
