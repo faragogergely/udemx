@@ -37,7 +37,7 @@ There are six opened port in the configuration:
 An Ansible-playbook running install the needed applications.
 For it, we need the "inventory" file and the "playbook.yml".
 
-Command "ansible playbook -i inventory playbook.yml"
+Command "ansible-playbook -i inventory playbook.yml"
 
 Before it, check and modify the IP address of your Virtual machine in the "inventory" file.
 

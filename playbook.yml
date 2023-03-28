@@ -73,7 +73,7 @@
     
     - name: Git checkout
       ansible.builtin.git:
-        repo: 'git@github.com:faragogergely/udemx.git'
+        repo: 'https://github.com/faragogergely/udemx.git'
         dest: /tmp/udemx
 
     - name: Start Docker Registry
